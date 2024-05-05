@@ -1,0 +1,25 @@
+{
+  "name": "websocket-jwt-application",
+  "version": "1.0.0",
+  "description": "Full stack application ",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DavidCavalcanti/websocket-jwt-application.git"
+  },
+  "author": "David Cavalcanti",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/DavidCavalcanti/websocket-jwt-application/issues"
+  },
+  "homepage": "https://github.com/DavidCavalcanti/websocket-jwt-application#readme",
+  "dependencies": {
+    "express": "^4.19.2"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.0"
+  }
+}
