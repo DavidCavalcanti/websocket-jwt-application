@@ -15,11 +15,8 @@ const diretorioPublic = path.join(caminhoAtual, "../..", "public");
 
 app.use(express.static(diretorioPublic));
 
-io.on('connection', (Socket) => {
-    console.log("Um cliente se conectou!");
-})
-
 servidorHttp.listen(porta, () => {
     console.log(`servidor escutando em http://localhost:${porta}`);
 });
 
+export default io;
