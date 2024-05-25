@@ -1,11 +1,12 @@
 import "dotenv/config";
-import { documentosColecao } from "./db_connection.js";
+import { atualizaTexto, encontraDocumento } from "./documentosDB.js";
 import io from "./servidor.js";
 
-io.on('connection', (socket) => {
-    console.log(`\nO cliente ${socket.id} se conectou!`);
+io.on('connection', (socket) => {    
 
     socket.on("selecionar_documento", async (nomeDocumento, retornarTexto) => {
+        console.log(`\nO cliente ${socket.id} se conectou na sala ${nomeDocumento}!`);
+
         socket.join(nomeDocumento);
 
         const documento = await encontraDocumento(nomeDocumento);
@@ -16,21 +17,11 @@ io.on('connection', (socket) => {
 
     });
 
-    socket.on("texto_editor", ({ texto, nomeDocumento }) => {
-        const documento = encontraDocumento(nomeDocumento);
-
-        if (nomeDocumento) {
-            documento.texto = texto;
+    socket.on("texto_editor", async ({ texto, nomeDocumento }) => {
+        const atualizacao = await atualizaTexto(nomeDocumento, texto);
+        
+        if (atualizacao.modifiedCount) {
+            socket.to(nomeDocumento).emit("texto_editor_cliente", texto);
         }
-
-        socket.to(nomeDocumento).emit("texto_editor_cliente", texto);
     });
 });
-
-function encontraDocumento(nome) {
-    const documento = documentosColecao.findOne({
-        nome
-    });
-
-    return documento;
-}
