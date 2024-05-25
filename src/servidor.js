@@ -3,6 +3,7 @@ import http from "http";
 import path from "path";
 import { Server } from "socket.io";
 import url from "url";
+import "./db_connection.js"
 
 const app = express();
 const servidorHttp = http.createServer(app);
